@@ -1,16 +1,23 @@
 from flask import Flask
-from flask_cors import CORS  # need to mention
+# from flask_cors import CORS  # need to mention
 import json
+import os
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+
+
+@app.route("/")
+def index():
+    return "Hello, index!"
 
 
 @app.route("/book")
-def json_file():
-    file = open('./book.json')
-    json_data = json_file(file)
-    return "hello"
+def book():
+    file_path = os.path.join(os.getcwd(), '03_webapp', 'backend', 'data.json')
+    with open(file_path) as file:
+        data = json.load(file)
+    return data
 
 
 if __name__ == '__main__':
